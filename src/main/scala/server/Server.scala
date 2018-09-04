@@ -2,7 +2,7 @@ package server
 
 import server.Settings.port
 import java.io.{DataInputStream, DataOutputStream, ObjectInputStream, ObjectOutputStream}
-import java.net.{BindException, ServerSocket}
+import java.net.ServerSocket
 
 import client.Request
 import doorlock.{DoorLock, DoorLockState}

@@ -3,40 +3,40 @@ package client
 import server.Settings.{host, port}
 import server.Response
 import doorlock.DoorLockState
-import client.ImagePaths.{imgLocked, imgUnlocked}
-
+import client.ImageObjects.{imgLocked, imgUnlocked}
 import java.io.{DataInputStream, DataOutputStream, ObjectInputStream, ObjectOutputStream}
 import java.net.{InetAddress, Socket}
+
 import scalafx.Includes._
 import scalafx.application.JFXApp
+import scalafx.geometry.Orientation
 import scalafx.scene.Scene
-import scalafx.scene.control.{Button, TextField}
+import scalafx.scene.control._
 import scalafx.scene.image.{Image, ImageView}
 
 object Client extends JFXApp {
   stage = new JFXApp.PrimaryStage {
     title = "Door Lock Controller"
-    scene = new Scene(400, 400) {
+    scene = new Scene(300, 300) {
       /* Create and initialize button */
       val button = new Button("Unlock")
       button.layoutX = 100
-      button.layoutY = 100
+      button.layoutY = 240
+      button.prefWidth = 100
 
       /* Create and initialize text field */
       val stateTextField = new TextField()
       stateTextField.layoutX = 50
-      stateTextField.layoutY = 50
+      stateTextField.layoutY = 190
+      stateTextField.prefWidth = 200
       stateTextField.editable = false
       stateTextField.focusTraversable = false
       stateTextField.text = "Locked"
 
       /* Create and initialize image */
-      //FIXME img is not visible
       val imgView = new ImageView(imgLocked)
-      imgView.prefHeight(20)
-      imgView.prefWidth(20)
-      imgView.layoutX = 50
-      imgView.layoutY = 50
+      imgView.layoutX = (300-128)/2
+      imgView.layoutY = 40
 
       /* Define actions */
       button.onAction = () => {
@@ -55,8 +55,7 @@ object Client extends JFXApp {
       if(sendRequest(DoorLockState.Unlocked)){
         btn.text = "Lock"
         txt.text = "Unlocked"
-        //FIXME change img path
-//        img.image = Image(imgUnlocked)
+        img.image_=(imgUnlocked)
       }
     }
 
@@ -64,8 +63,7 @@ object Client extends JFXApp {
       if(sendRequest(DoorLockState.Locked)){
         btn.text = "Unlock"
         txt.text = "Locked"
-        //FIXME change img path
-//        img.image = Image(imgLocked)
+        img.image_=(imgLocked)
       }
     }
 

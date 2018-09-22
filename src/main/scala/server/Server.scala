@@ -38,7 +38,12 @@ object Server extends App {
       /* Response area */
       val objectOutputStream = new ObjectOutputStream(new DataOutputStream(socket.getOutputStream()))
       val comment = if(success) {
-        "Successfully updated value"
+        val tmp = "Successfully updated to "
+        val tmp2 = doorLock() match {
+          case DoorLockState.Locked => "\"Locked\"": String
+          case DoorLockState.Unlocked => "\"Unlocked\"": String
+        }
+        tmp + tmp2
       } else {
         "Updating value was unsuccessful"
       }
